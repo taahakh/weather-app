@@ -7,6 +7,7 @@ import style_ipad from '../button/style_ipad';
 import $ from 'jquery';
 // import the Button component
 import Button from '../button';
+import TopBar from '../topbar';
 
 export default class Ipad extends Component {
 //var Ipad = React.createClass({
@@ -42,6 +43,7 @@ export default class Ipad extends Component {
 		// display all weather data
 		return (
 			<div class={ style.container }>
+			{/* <div><TopBar /></div> */}
 				<div class={ style.header }>
 					<div class={ style.city }>{ this.state.currentCity }</div>
 					<div class={ style.country }>{ this.state.currentCountry }</div>
