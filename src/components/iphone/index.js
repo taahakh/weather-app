@@ -8,6 +8,10 @@ import $ from 'jquery';
 // import the Button component
 import Button from '../button';
 import TopBar from '../topbar';
+import BottomBar from '../bottombar';
+import Description from '../sideTubes/description';
+import Stats from '../sideTubes/stats';
+import WeatherDescription from '../sideTubes/description';
 
 export default class Iphone extends Component {
 //var Iphone = React.createClass({
@@ -45,6 +49,18 @@ export default class Iphone extends Component {
 			<div class={ style.container }>
 				<div class={style.topbar}>
 					<TopBar />
+				</div>
+				<div class={ style.sidebarcontainer } >
+					{/* <p> HELL</p> */}
+					<div class={style.sidebarleft}>
+						<Description />
+					</div>
+					<div class={style.sidebarright}>
+						<Stats />
+					</div>
+				</div>
+				<div class={style.bottombar}>
+					<BottomBar />
 				</div>
 				{/* <div class={ style.header }>
 					<div class={ style.city }>{ this.state.locate }</div>
