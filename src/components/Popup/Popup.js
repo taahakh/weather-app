@@ -1,7 +1,6 @@
-import { h, render, Component } from 'preact';
+import { h, Component } from 'preact';
 
 export default class Popup extends Component {
-
 	render(contents) {
 		const styles = {
 			popup: {
@@ -10,9 +9,8 @@ export default class Popup extends Component {
 				left : '0',
 				width : '100%',
 				height : '100vh',
-				backgroundColor : 'rgba(0, 0, 0, 0.2)',
+				backgroundColor : 'rgba(0, 0, 0, 0.6)',
 				color : '#000000',
-
 				display : 'flex',
 				justifyContent : 'center',
 				alignItems : 'center'
@@ -34,7 +32,7 @@ export default class Popup extends Component {
 		return (contents.trigger) ? (
 			<div className="popup" style={styles.popup}>
 				<div className="popup-inner" style={styles.popupInner}>
-					<button className="close-btn" style={styles.closeBtn}>Close</button>
+					<button className="close-btn" style={styles.closeBtn} onClick={contents.onClose}>Close</button>
 					{ contents.children }
 				</div>
 			</div>
