@@ -28,7 +28,8 @@ export default class Iphone extends Component {
 	// a call to fetch weather data via wunderground
 	fetchWeatherData = () => {
 		// API URL with a structure of : ttp://api.wunderground.com/api/key/feature/q/country-code/city.json
-		var url = "http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&APPID=cf17e23b1d108b29a4d738d2084baf5";
+		// var url = "http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&APPID=cf17e23b1d108b29a4d738d2084baf5";
+		var url = "http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=9addb593cb28a2e3bb3a643c14d0ef8a"
 		$.ajax({
 			url: url,
 			dataType: "jsonp",
@@ -39,6 +40,7 @@ export default class Iphone extends Component {
 		this.setState({ display: false });
 	}
 
+
 	// the main render method for the iphone component
 	render() {
 		// check if temperature data is fetched, if so add the sign styling to the page
@@ -48,12 +50,12 @@ export default class Iphone extends Component {
 		return (
 			<div class={ style.container }>
 				<div class={style.topbar}>
-					<TopBar />
+					<TopBar />;
 				</div>
 				<div class={ style.sidebarcontainer } >
 					{/* <p> HELL</p> */}
 					<div class={style.sidebarleft}>
-						<Description />
+						<Description locate={this.state.locate} desc={this.state.descAPI} />
 					</div>
 					<div class={style.sidebarright}>
 						<Stats />
@@ -62,15 +64,16 @@ export default class Iphone extends Component {
 				<div class={style.bottombar}>
 					<BottomBar />
 				</div>
-				{/* <div class={ style.header }>
+				<div class={ style.header }>
 					<div class={ style.city }>{ this.state.locate }</div>
 					<div class={ style.conditions }>{ this.state.cond }</div>
 					<span class={ tempStyles }>{ this.state.temp }</span>
-				</div> */}
-				{/* <div class={ style.details }></div>
+				</div> 
+
+				<div class={ style.details }></div>
 				<div class= { style_iphone.container }> 
 					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null }
-				</div> */}
+				</div>
 			</div>
 		);
 	}
@@ -79,12 +82,14 @@ export default class Iphone extends Component {
 		var location = parsed_json['name'];
 		var temp_c = parsed_json['main']['temp'];
 		var conditions = parsed_json['weather']['0']['description'];
+		var desc_api = parsed_json['weather']['0']['description'];
 
 		// set states for fields so they could be rendered later on
 		this.setState({
 			locate: location,
 			temp: temp_c,
-			cond : conditions
-		});      
+			cond : conditions,
+			descAPI : desc_api
+		});
 	}
 }
