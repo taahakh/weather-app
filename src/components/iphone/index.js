@@ -23,6 +23,8 @@ export default class Iphone extends Component {
 		this.state.temp = "";
 		// button display state
 		this.setState({ display: true });
+		// API ID
+		this.state.appid = "9addb593cb28a2e3bb3a643c14d0ef8a";
 
 		navigator.geolocation.getCurrentPosition((position) => {
 			// this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
@@ -40,7 +42,9 @@ export default class Iphone extends Component {
 		if(!(isNaN(lat) && isNaN(lon))) {
 			this.state.lat = lat;
 			this.state.lon = lon;
-			url = "https://api.openweathermap.org/data/2.5/forecast/daily?lat="+lat.toString(10).substring(0,4)+"&lon="+lon.toString(10).substring(0,4)+"&cnt=7&&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
+			url = "https://api.openweathermap.org/data/2.5/forecast/daily?lat="+lat.toString(10).substring(0,5)+"&lon="+lon.toString(10).substring(0,5)+"&cnt=7&&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
+			// POSTCODE LOCATION
+			// url = "https://api.openweathermap.org/data/2.5/forecast/daily?zip=ig6,GB&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
 		} else {
 			url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
 		}
@@ -50,16 +54,26 @@ export default class Iphone extends Component {
 		// API URL with a structure of : ttp://api.wunderground.com/api/key/feature/q/country-code/city.json
 		// var url = "http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&APPID=cf17e23b1d108b29a4d738d2084baf5";
 		// var url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
-		
-		$.ajax({
-			url: url,
-			dataType: "jsonp",
-			success : this.parseResponse,
-			error : function(req, err){ console.log('API call failed ' + err); }
-		})
+
+		this.ajaxFetch(url, this.parseResponse);
 
 		// once the data grabbed, hide the button
 		this.setState({ display: false });
+	}
+
+	customFetchWeather = (pc) => {
+		var url = "https://api.openweathermap.org/data/2.5/forecast/daily?zip=ig6,GB&appid=" + this.state.appid;
+
+		this.ajaxFetch(url, this.parseResponse);
+	}
+
+	ajaxFetch = (url, succ) => {
+		$.ajax({
+			url: url,
+			dataType: "jsonp",
+			success : succ,
+			error : function(req, err){ console.log('API call failed ' + err); }
+		})
 	}
 
 	componentDidMount() {}
@@ -78,6 +92,32 @@ export default class Iphone extends Component {
 			descAPI : "Nice weaather descAPI",
 			pic : "https://openweathermap.org/img/wn/10d@4x.png"
 		});
+	}
+
+	switchBackground = (code) => {
+
+		var background_img;
+
+		if (code >= 200 || code <= 299) { // Thunderstorm
+
+		} else if (code >= 300 || code <= 399) { // Drizzle
+			
+		} else if (code >= 500 || code <= 599) { // Rain 
+			
+		} else if (code >= 600 || code <= 699) { // Snow 
+			
+		} else if (code >= 700 || code <= 799) { // Atmosphere 
+			
+		} else if (code == 800) { // Clear 
+			
+		} else { // Clouds
+
+		}
+
+		this.setState({
+			background_img : background_img
+		})
+
 	}
 
 
@@ -122,6 +162,8 @@ export default class Iphone extends Component {
 	}
 
 	parseResponse = (parsed_json) => {
+		// THIS IS FOR DAY ONE (CURRENT DAY), WE NEED TO STORE THE 7 DAYS
+		
 		// var location = parsed_json['name'];
 		var location = parsed_json['city']['name'];
 		// var temp_c = parsed_json['main']['temp'];
@@ -130,6 +172,8 @@ export default class Iphone extends Component {
 		var conditions = parsed_json['list']['0']['weather']['0']['description'];
 		// var pic = parsed_json['weather']['0']['icon'];
 		var pic = parsed_json['list']['0']['weather']['0']['icon'];
+		// Getting weather id for background image
+		var weather_id = parsed_json['list']['0']['weather']['0']['id'];
 
 		// set states for fields so they could be rendered later on
 		this.setState({
@@ -139,6 +183,8 @@ export default class Iphone extends Component {
 			descAPI : conditions,
 			pic : "https://openweathermap.org/img/wn/"+ pic +"@4x.png"
 		});
+
+		this.switchBackground(weather_id);
 	}
 
 	// parseReverseGeoResponse = (parsed_json) => {
