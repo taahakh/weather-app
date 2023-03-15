@@ -23,13 +23,17 @@ export default class Iphone extends Component {
 		this.state.temp = "";
 		// button display state
 		this.setState({ display: true });
+
+		navigator.geolocation.getCurrentPosition((position) => {
+			this.addTempData(position.coords.latitude, "");
+		});
 	}
 
 	// a call to fetch weather data via wunderground
 	fetchWeatherData = () => {
 		// API URL with a structure of : ttp://api.wunderground.com/api/key/feature/q/country-code/city.json
 		// var url = "http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&APPID=cf17e23b1d108b29a4d738d2084baf5";
-		var url = "http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=9addb593cb28a2e3bb3a643c14d0ef8a"
+		var url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=9addb593cb28a2e3bb3a643c14d0ef8a"
 		$.ajax({
 			url: url,
 			dataType: "jsonp",
@@ -38,6 +42,24 @@ export default class Iphone extends Component {
 		})
 		// once the data grabbed, hide the button
 		this.setState({ display: false });
+	}
+
+	componentDidMount() {}
+
+	addTempData = (lat, lon) => {
+		console.log("ok", lat);
+		if(this.state.lat !== "") {
+			lat = this.state.lat;
+		}
+		this.setState({
+			locate: "Mile end",
+			temp: "20",
+			cond : "Nice weather",
+			descAPI : "Nice weaather descAPI",
+			lat : lat,
+			lon : lon
+		});
+		console.log("111");
 	}
 
 
@@ -56,6 +78,8 @@ export default class Iphone extends Component {
 					{/* <p> HELL</p> */}
 					<div class={style.sidebarleft}>
 						<Description locate={this.state.locate} desc={this.state.descAPI} />
+						<p>{this.state.lat}</p>
+						<p>{this.state.lon}</p>
 					</div>
 					<div class={style.sidebarright}>
 						<Stats />
@@ -72,7 +96,8 @@ export default class Iphone extends Component {
 
 				<div class={ style.details }></div>
 				<div class= { style_iphone.container }> 
-					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null }
+					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null } */}
+					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.addTempData }/ > : null }
 				</div>
 			</div>
 		);
