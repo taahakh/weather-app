@@ -13,8 +13,8 @@ export default class WeatherDescription extends Component {
 			// location: props.locate,
 			// name: props.desc,
 			locate : props.locate,
-			desc : props.descAPI,
-		})
+			desc : props.descAPI
+		});
 	}
 
 
