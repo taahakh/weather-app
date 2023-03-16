@@ -27,8 +27,8 @@ export default class Iphone extends Component {
 		this.state.appid = "9addb593cb28a2e3bb3a643c14d0ef8a";
 
 		navigator.geolocation.getCurrentPosition((position) => {
-			// this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
-			this.addTempData(position.coords.latitude, position.coords.longitude);
+			this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
+			// this.addTempData(position.coords.latitude, position.coords.longitude);
 		});
 	}
 
@@ -116,7 +116,7 @@ export default class Iphone extends Component {
 
 		this.setState({
 			background_img : background_img
-		})
+		});
 
 	}
 

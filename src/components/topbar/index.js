@@ -17,11 +17,11 @@ export default class TopBar extends Component {
 	}
 
     render() {
-    const DatePicker = () => {
-    const [date, setDate] = useState('')
-    const dateInputRef = useRef(null);
-    const handleChange = (e) => {
-    setDate
+		const DatePicker = () => {
+			const [date, setDate] = useState('')
+			const dateInputRef = useRef(null);
+			const handleChange = (e) => {
+			setDate
     };
 
 
@@ -38,7 +38,7 @@ export default class TopBar extends Component {
        				</td>
        			</tr>
        			<tr>
-       			<td class={ style.day }>Mon</td>
+       			<td class={ style.day }>Thur</td>
        			<td class={ style.day }>Tue</td>
        			<td class={ style.day }>Wed</td>
        			<td class={ style.day }>Thur</td>
