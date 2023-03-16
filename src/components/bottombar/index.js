@@ -20,6 +20,14 @@ export default class BottomBar extends Component {
 					<h3>Delays</h3>
 					<p>Insert Delays Here...</p>
 				</Popup>
+
+				<button onClick={() => this.setState({ buttonPopup: true })} class={Style.delaysButton}>
+					Search Location
+				</button>
+				<Popup trigger={this.state.buttonPopup} onClose={() => this.setState({ buttonPopup: false })}>
+					<h3>Location</h3>
+					<p>Insert Search Location Here...</p>
+				</Popup>
 			</div>
 		);
 	}
