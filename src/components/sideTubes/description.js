@@ -10,11 +10,10 @@ export default class WeatherDescription extends Component {
 		super(props);
 		// this.state.desc = props.desc;
 		this.setState({
-			// location: props.locate,
-			// name: props.desc,
 			locate : props.locate,
-			desc : props.descAPI
-		});
+			desc : props.descAPI,
+			pic : props.pic
+		})
 	}
 
 
@@ -25,7 +24,8 @@ export default class WeatherDescription extends Component {
 					<h4>{ this.props.locate }</h4>
 				</div>
 				<div class={style.desc_pic}>
-					<i class="wi wi-night-sleet"></i>
+					{/* <i class="wi wi-night-sleet"></i> */}
+					<img src={this.props.pic}></img>
 				</div>
 				<div class={style.desc_text}>
 					<p>
