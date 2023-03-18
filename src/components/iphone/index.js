@@ -27,15 +27,18 @@ export default class Iphone extends Component {
 		this.state.temp = "";
 		// button display state
 		this.setState({ display: true });
+		// this.setState({ dataUpdate: 0 });
+		this.setState({degreeType : "celcius"});
+
 		// API ID
 		this.state.appid = "9addb593cb28a2e3bb3a643c14d0ef8a";
 
 		navigator.geolocation.getCurrentPosition((position) => {
-			this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
+			// this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
 			// this.addTempData(position.coords.latitude, position.coords.longitude);
 		});
 
-		// this.addTempData("", "");
+		this.addTempData("", "");
 
 	}
 
@@ -84,7 +87,7 @@ export default class Iphone extends Component {
 			dataType: "jsonp",
 			success : succ,
 			error : function(req, err){ console.log('API call failed ' + err); }
-		})
+		});
 	}
 
 	componentDidMount() {}
@@ -149,7 +152,7 @@ export default class Iphone extends Component {
 						<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
 					</div>
 					<div class={style.sidebarright}>
-						<Stats temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} />
+						<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} />
 					</div>
 				</div>
 				<div class={style.bottombar}>
@@ -184,6 +187,8 @@ export default class Iphone extends Component {
 		// Wind
 		var wind = parsed_json['list']['0']['speed'];
 
+		// var dataUpdate = this.state.dataUpdate === 0 ? 1 : 0;
+
 		console.log(temp_c);
 
 		// set states for fields so they could be rendered later on
@@ -194,7 +199,8 @@ export default class Iphone extends Component {
 			descAPI : conditions,
 			pic : "https://openweathermap.org/img/wn/"+ pic +"@4x.png",
 			precipitation : precipitation,
-			wind : wind
+			wind : wind,
+			degreeType : "celcius"
 		});
 
 		this.switchBackground(weather_id);

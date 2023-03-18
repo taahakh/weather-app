@@ -11,8 +11,33 @@ export default class WeatherStats extends Component {
 		// 	uv: props.uv,
 		// 	windR: props.windR
 		// };
-		
+		this.state = {
+			temp_state: "celcius",
+			symbol: "°C"
+		};
 	}
+
+	handleTemperatureChange = () => {
+		if (this.props.degreeType === "celcius") {
+			this.props.degreeType = "fahrenheit";
+			this.props.temp = celsiusToFahrenheit(this.props.temp);
+			this.setState({symbol: "°F"});
+		} else {
+			this.props.degreeType = "celcius";
+			this.props.temp = fahrenheitToCelsius(this.props.temp);
+			this.setState({symbol: "°C"});
+		}
+	}
+
+	componentDiDUpdate(prevProps, prevState) {
+		if (prevProps.degreeType !== this.props.degreeType) {
+			if (prevProps.degreeType === "farhenheit") {
+				this.props.temp = celsiusToFahrenheit(this.props.temp);
+				this.setState({symbol: "°F"});
+			}
+		}
+	}
+
 
 	render() {
 		return (
@@ -21,8 +46,7 @@ export default class WeatherStats extends Component {
 					<h5>Next Hour:</h5>
 				</div>
 				<div class={style.desc_text}>
-					{/* <h1>{this.state.temp}°C</h1> */}
-					<h1>{this.props.temp}°C</h1>
+					<h1 onClick={this.handleTemperatureChange}>{this.props.temp}{this.state.symbol}</h1>
 					<ul class={style.stats_list}>
 						<li>
 							<img src ='https://ibb.co/Qr4CsqF'/>
@@ -44,4 +68,14 @@ export default class WeatherStats extends Component {
 			</div>
 		);
 	}
+}
+
+function celsiusToFahrenheit(celsius) {
+	const fahrenheit = (celsius * 9/5) + 32;
+	return fahrenheit.toFixed(1);
+}
+  
+function fahrenheitToCelsius(fahrenheit) {
+	const celsius = (fahrenheit - 32) * 5/9;
+	return celsius.toFixed(1);
 }
