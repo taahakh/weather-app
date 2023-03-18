@@ -38,7 +38,7 @@ export default class TopBar extends Component {
 		for (let i = 0; i < 7; i++) {
 			const dayIndex = (today + i) % 7;
 			const day = this.state.days[dayIndex];
-			daysList.push(<div class={style.dayInner} key={i}>{day}</div>);
+			daysList.push(<div class={style.dayInner} key={i} onClick={() => this.props.days.showDayWeather(i)}>{day}</div>);
 		}
 
 		return (
