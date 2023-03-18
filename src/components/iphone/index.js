@@ -101,7 +101,7 @@ export default class Iphone extends Component {
 		}
 
 		this.setState({
-			locate: "Mile end",
+			locate: "Mile End",
 			temp: "20",
 			cond : "Nice weather",
 			descAPI : "Nice weaather descAPI",
@@ -116,19 +116,19 @@ export default class Iphone extends Component {
 		let bg;
 
 		if (code >= 200 && code <= 299) { // Thunderstorm
-
-		} else if (code >= 300 || code <= 399) { // Drizzle
-
-		} else if (code >= 500 || code <= 599) { // Rain
-
-		} else if (code >= 600 || code <= 699) { // Snow
-
-		} else if (code >= 700 || code <= 799) { // Atmosphere
-
+			bg = "../../assets/backgrounds/thunderBack.jpg";
+		} else if (code >= 300 && code <= 399) { // Drizzle
+			bg = "../../assets/backgrounds/drizzleBack.jpg";
+		} else if (code >= 500 && code <= 599) { // Rain
+			bg = "../../assets/backgrounds/rainBack.jpg";
+		} else if (code >= 600 && code <= 699) { // Snow
+			bg = "../../assets/backgrounds/snowBack.jpg";
+		} else if (code >= 700 && code <= 799) { // Atmosphere
+			bg = "../../assets/backgrounds/atmosphereBack.jpg";
 		} else if (code == 800) { // Clear
-
+			bg = "../../assets/backgrounds/c.jpg";
 		} else { // Clouds
-		
+
 		}
 
 		this.setState({ background : bg });
