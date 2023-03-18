@@ -13,6 +13,10 @@ import Description from '../sideTubes/description';
 import Stats from '../sideTubes/stats';
 import WeatherDescription from '../sideTubes/description';
 
+function kelvinToCelsius(kelvin) {
+	return (kelvin - 273.15).toFixed(1);
+}
+
 export default class Iphone extends Component {
 //var Iphone = React.createClass({
 
@@ -30,6 +34,9 @@ export default class Iphone extends Component {
 			this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
 			// this.addTempData(position.coords.latitude, position.coords.longitude);
 		});
+
+		// this.addTempData("", "");
+
 	}
 
 	// a call to fetch weather data via wunderground
@@ -136,21 +143,14 @@ export default class Iphone extends Component {
 					{/* <p> HELL</p> */}
 					<div class={style.sidebarleft}>
 						<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
-						{/* <p>{this.state.lat}</p>
-						<p>{this.state.lon}</p> */}
 					</div>
 					<div class={style.sidebarright}>
-						<Stats />
+						<Stats temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} />
 					</div>
 				</div>
 				<div class={style.bottombar}>
 					<BottomBar />
 				</div>
-				{/* <div class={ style.header }>
-					<div class={ style.city }>{ this.state.locate }</div>
-					<div class={ style.conditions }>{ this.state.cond }</div>
-					<span class={ tempStyles }>{ this.state.temp }</span>
-				</div>  */}
 
 				<div class={ style.details }></div>
 				<div class= { style_iphone.container }> 
@@ -168,12 +168,19 @@ export default class Iphone extends Component {
 		var location = parsed_json['city']['name'];
 		// var temp_c = parsed_json['main']['temp'];
 		var temp_c = parsed_json['list']['0']['temp']['max'];
+		temp_c = kelvinToCelsius(temp_c);
 		// var conditions = parsed_json['weather']['0']['description'];
 		var conditions = parsed_json['list']['0']['weather']['0']['description'];
 		// var pic = parsed_json['weather']['0']['icon'];
 		var pic = parsed_json['list']['0']['weather']['0']['icon'];
 		// Getting weather id for background image
 		var weather_id = parsed_json['list']['0']['weather']['0']['id'];
+		// Precipitation
+		var precipitation = parsed_json['list']['0']['pop'];
+		// Wind
+		var wind = parsed_json['list']['0']['speed'];
+
+		console.log(temp_c);
 
 		// set states for fields so they could be rendered later on
 		this.setState({
@@ -181,7 +188,9 @@ export default class Iphone extends Component {
 			temp: temp_c,
 			cond : conditions,
 			descAPI : conditions,
-			pic : "https://openweathermap.org/img/wn/"+ pic +"@4x.png"
+			pic : "https://openweathermap.org/img/wn/"+ pic +"@4x.png",
+			precipitation : precipitation,
+			wind : wind
 		});
 
 		this.switchBackground(weather_id);
