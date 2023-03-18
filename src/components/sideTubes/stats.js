@@ -1,14 +1,5 @@
 // import preact
 import { h, render, Component } from 'preact';
-<<<<<<< Updated upstream
-	
-export default class WeatherStats extends Component {
-
-	render() {
-		return (
-			<div>
-                <p>Weather STATS</p>
-=======
 import style from './style.less';
 
 export default class WeatherStats extends Component {
@@ -72,14 +63,11 @@ export default class WeatherStats extends Component {
 						</li>
 					</ul>
 				</div>
->>>>>>> Stashed changes
 			</div>
 		);
 	}
 }
 
-<<<<<<< Updated upstream
-=======
 function celsiusToFahrenheit(celsius) {
 	const fahrenheit = (celsius * 9/5) + 32;
 	return fahrenheit.toFixed(1);
@@ -89,4 +77,4 @@ function fahrenheitToCelsius(fahrenheit) {
 	const celsius = (fahrenheit - 32) * 5/9;
 	return celsius.toFixed(1);
 }
->>>>>>> Stashed changes
+

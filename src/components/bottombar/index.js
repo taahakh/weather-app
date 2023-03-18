@@ -42,13 +42,13 @@ export default class BottomBar extends Component {
 				<Popup trigger={delaysPopup} onClose={() => this.setState({ delaysPopup: false })}>
 					<h3>Delays</h3>
 					{lineNames.sort((a, b) => {
-							if (lineStatuses[a] === 'Severe Delays') return -1;
-							if (lineStatuses[b] === 'Severe Delays') return 1;
-							if (lineStatuses[a] === 'Part suspended') return -1;
-							if (lineStatuses[b] === 'Part suspended') return 1;
-							if (lineStatuses[a] === 'Minor Delays') return -1;
-							if (lineStatuses[b] === 'Minor Delays') return 1;
-							return 0;}).map((lineName) => (<p style={{color: lineStatuses[lineName] === 'Severe Delays' ? 'red':
+						if (lineStatuses[a] === 'Severe Delays') return -1;
+						if (lineStatuses[b] === 'Severe Delays') return 1;
+						if (lineStatuses[a] === 'Part suspended') return -1;
+						if (lineStatuses[b] === 'Part suspended') return 1;
+						if (lineStatuses[a] === 'Minor Delays') return -1;
+						if (lineStatuses[b] === 'Minor Delays') return 1;
+						return 0;}).map((lineName) => (<p style={{color: lineStatuses[lineName] === 'Severe Delays' ? 'red':
 								lineStatuses[lineName] === 'Part suspended' ? 'red': lineStatuses[lineName] === 'Minor Delays' ? '#e66e19': 'green', fontSize: '20px'}}>
 								{lineName}: {lineStatuses[lineName] || 'Loading...'}</p>))}
 				</Popup>
@@ -57,9 +57,6 @@ export default class BottomBar extends Component {
 				</button>
 				<Popup trigger={locationPopup} onClose={() => this.setState({ locationPopup: false })}>
 					<h3>Location</h3>
-<<<<<<< Updated upstream
-					<p>Insert Location Stuff Here...</p>
-=======
 					{/* <p>Insert Location Stuff Here...</p> */}
 					<input type="text" id="custom_loc" name="custom_loc"></input>
 					<button type="button" onClick={() => {
@@ -68,7 +65,6 @@ export default class BottomBar extends Component {
 						this.handleChangeTrigger(custom_loc);
 						this.setState({ locationPopup: false });
 					}}>Submit</button>
->>>>>>> Stashed changes
 				</Popup>
 			</div>
 		);

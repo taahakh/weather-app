@@ -5,7 +5,7 @@ import React, {useState} from 'react';
 import DatePicker from 'react-datepicker';
 import style from './style.less';
 
-import "react-datepicker/dist/react-datepicker.css"
+import "react-datepicker/dist/react-datepicker.css";
 
 export default class TopBar extends Component {
 
@@ -17,22 +17,22 @@ export default class TopBar extends Component {
 	}
 
 	render() {
-		const DatePicker = () => {
-			const [date, setDate] = useState('')
-			const dateInputRef = useRef(null);
-			const handleChange = (e) => {
-			setDate
-			};
+		//const DatePicker = () => {
+		// const [date, setDate] = useState('')
+		// const dateInputRef = useRef(null);
+		// const handleChange = (e) => {
+		// setDate
+		// };
 
 
-		};
+		//};
   //  const [startDate, setStartDate] = useState(new Date());
 		return (
 			// eslint-disable-next-line no-mixed-spaces-and-tabs
        			<div className="bottom-bar">
-					<div align="center">
+					{/*<div align="center">
 						<input type="date" class={style.calendar}/>
-					</div>
+					</div>*/}
 					<div class={style.dayOuter}>
 						<div class={style.dayInner}>Mon</div>
 						<div class={style.dayInner}>Tue</div>
