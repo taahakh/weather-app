@@ -68,8 +68,12 @@ export default class Iphone extends Component {
 		this.setState({ display: false });
 	}
 
+	onLocationChange = (custom_loc) => {
+		this.customFetchWeather(custom_loc);
+	}
+
 	customFetchWeather = (pc) => {
-		var url = "https://api.openweathermap.org/data/2.5/forecast/daily?zip=ig6,GB&appid=" + this.state.appid;
+		var url = "https://api.openweathermap.org/data/2.5/forecast/daily?zip="+pc+",GB&appid=" + this.state.appid;
 
 		this.ajaxFetch(url, this.parseResponse);
 	}
@@ -149,7 +153,7 @@ export default class Iphone extends Component {
 					</div>
 				</div>
 				<div class={style.bottombar}>
-					<BottomBar />
+					<BottomBar changeTrigger={this}/>
 				</div>
 
 				<div class={ style.details }></div>
@@ -195,9 +199,4 @@ export default class Iphone extends Component {
 
 		this.switchBackground(weather_id);
 	}
-
-	// parseReverseGeoResponse = (parsed_json) => {
-	// 	var location = parsed_json['0']['name'];
-	// 	console.log(location);
-	// }
 }

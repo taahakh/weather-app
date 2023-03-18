@@ -30,6 +30,10 @@ export default class BottomBar extends Component {
 		});
 	}
 
+	handleChangeTrigger = (custom_loc) => {
+		this.props.changeTrigger.onLocationChange(custom_loc);
+	}
+
 	render() {
 		const { delaysPopup, locationPopup, lineStatuses } = this.state;
 		const lineNames = ['Bakerloo', 'Central', 'Circle', 'District', 'Elizabeth', 'Hammersmith-city',
@@ -57,7 +61,14 @@ export default class BottomBar extends Component {
 				</button>
 				<Popup trigger={locationPopup} onClose={() => this.setState({ locationPopup: false })}>
 					<h3>Location</h3>
-					<p>Insert Location Stuff Here...</p>
+					{/* <p>Insert Location Stuff Here...</p> */}
+					<input type="text" id="custom_loc" name="custom_loc"></input>
+					<button type="button" onClick={() => { 
+						var custom_loc = document.getElementById("custom_loc").value;
+						console.log(custom_loc);
+						this.handleChangeTrigger(custom_loc);
+						this.setState({ locationPopup: false });
+					}}>Submit</button>
 				</Popup>
 			</div>
 		);
