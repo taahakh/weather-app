@@ -12,7 +12,8 @@ export default class TopBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			buttonPopup: false
+			buttonPopup: false,
+			days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 		};
 	}
 
@@ -27,20 +28,23 @@ export default class TopBar extends Component {
 
 		// };
   //  const [startDate, setStartDate] = useState(new Date());
+
+		const today = new Date().getDay();
+		const daysList = [];
+
+		for (let i = 0; i < 7; i++) {
+			const dayIndex = (today + i) % 7;
+			const day = this.state.days[dayIndex];
+			daysList.push(<div class={style.dayInner} key={i}>{day}</div>);
+		}
+
 		return (
-			// eslint-disable-next-line no-mixed-spaces-and-tabs
        			<div className="bottom-bar">
 					{/* <div align="center">
 						<input type="date" class={style.calendar}/>
 					</div> */}
 					<div class={style.dayOuter}>
-						<div class={style.dayInner}>Mon</div>
-						<div class={style.dayInner}>Tue</div>
-						<div class={style.dayInner}>Wed</div>
-						<div class={style.dayInner}>Thu</div>
-						<div class={style.dayInner}>Fri</div>
-						<div class={style.dayInner}>Sat</div>
-						<div class={style.dayInner}>Sun</div>
+						{daysList}
 					</div>
 				   </div>
 
