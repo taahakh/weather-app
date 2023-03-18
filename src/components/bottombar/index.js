@@ -30,6 +30,10 @@ export default class BottomBar extends Component {
 		});
 	}
 
+	handleChangeTrigger = (custom_loc) => {
+		this.props.changeTrigger.onLocationChange(custom_loc);
+	}
+
 	render() {
 		const { delaysPopup, locationPopup, lineStatuses } = this.state;
 		const lineNames = ['Bakerloo', 'Central', 'Circle', 'District', 'Elizabeth', 'Hammersmith-city',
