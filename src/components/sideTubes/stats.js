@@ -1,6 +1,6 @@
 // import preact
 import { h, render, Component } from 'preact';
-import style from './style';
+import style from './style.less';
 
 export default class WeatherStats extends Component {
 	constructor(props){
@@ -42,24 +42,22 @@ export default class WeatherStats extends Component {
 	render() {
 		return (
 			<div class={style.right_side}>
-				<div class = {style.desc_name}>
-					<h5>Next Hour:</h5>
-				</div>
+				<div class = {style.statName}>Next Hour:</div>
 				<div class={style.desc_text}>
-					<h1 onClick={this.handleTemperatureChange}>{this.props.temp}{this.state.symbol}</h1>
+					<h2 onClick={this.handleTemperatureChange}>{this.props.temp}{this.state.symbol}</h2>
 					<ul class={style.stats_list}>
 						<li>
-							<img src ='https://ibb.co/Qr4CsqF'/>
+							<img src ='https://img.freepik.com/free-icon/water-drop_318-423722.jpg?w=2000' class={style.infoImage}/>
 							{/* <p>{this.state.precipitation}%</p> */}
 							<p>{this.props.precipitation}%</p>
 						</li>
 						<li>
-							<img src ='https://ibb.co/KD7PH71'/>
+							<img src ='https://cdn-icons-png.flaticon.com/512/439/439471.png' class={style.infoImage}/>
 							{/* <p>{this.state.windR}km/h</p> */}
 							<p>{this.props.windR}km/h</p>
 						</li>
 						<li>
-							<img src ='https://ibb.co/KD7PH71'/>
+							<img src ='https://cdn-icons-png.flaticon.com/512/2945/2945800.png' class={style.infoImage}/>
 							{/* <p>{this.state.uv}</p> */}
 							<p>{this.props.uv}</p>
 						</li>
@@ -74,8 +72,9 @@ function celsiusToFahrenheit(celsius) {
 	const fahrenheit = (celsius * 9/5) + 32;
 	return fahrenheit.toFixed(1);
 }
-  
+
 function fahrenheitToCelsius(fahrenheit) {
 	const celsius = (fahrenheit - 32) * 5/9;
 	return celsius.toFixed(1);
 }
+

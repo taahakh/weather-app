@@ -13,8 +13,8 @@ import Description from '../sideTubes/description';
 import Stats from '../sideTubes/stats';
 import WeatherDescription from '../sideTubes/description';
 
-function kelvinToCelsius(kelvin) {
-	return (kelvin - 273.15).toFixed(1);
+function kelvinToCelsius(kelvin){
+	return (kelvin-273.15).toFixed(1);
 }
 
 export default class Iphone extends Component {
@@ -27,6 +27,7 @@ export default class Iphone extends Component {
 		this.state.temp = "";
 		// button display state
 		this.setState({ display: true });
+
 		this.setState({ degreeType : "celcius" });
 		this.setState({ background : "../../assets/backgrounds/c.jpg" });
 
@@ -34,11 +35,11 @@ export default class Iphone extends Component {
 		this.state.appid = "9addb593cb28a2e3bb3a643c14d0ef8a";
 
 		navigator.geolocation.getCurrentPosition((position) => {
-			// this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
+			//this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
 			// this.addTempData(position.coords.latitude, position.coords.longitude);
 		});
 
-		this.addTempData("", "");
+		this.addTempData("","");
 
 	}
 
@@ -116,19 +117,20 @@ export default class Iphone extends Component {
 
 		if (code >= 200 && code <= 299) { // Thunderstorm
 
-		} else if (code >= 300 && code <= 399) { // Drizzle
-			
-		} else if (code >= 500 && code <= 599) { // Rain 
-			
-		} else if (code >= 600 && code <= 699) { // Snow 
-			
-		} else if (code >= 700 && code <= 799) { // Atmosphere 
-			// bg = "../../assets/backgrounds/c.jpg";
-		} else if (code === 800) { // Clear 
-			bg = "../../assets/backgrounds/c.jpg";
+		} else if (code >= 300 || code <= 399) { // Drizzle
+
+		} else if (code >= 500 || code <= 599) { // Rain
+
+		} else if (code >= 600 || code <= 699) { // Snow
+
+		} else if (code >= 700 || code <= 799) { // Atmosphere
+
+		} else if (code == 800) { // Clear
+
 		} else { // Clouds
 		
 		}
+
 		this.setState({ background : bg });
 
 	}
@@ -138,6 +140,7 @@ export default class Iphone extends Component {
 	render() {
 		// check if temperature data is fetched, if so add the sign styling to the page
 		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
+
 		// display all weather data
 		return (
 			<div class={ style.container } style={{backgroundImage: `url(${this.state.background})`}}>
@@ -158,7 +161,7 @@ export default class Iphone extends Component {
 				</div>
 
 				<div class={ style.details }></div>
-				<div class= { style_iphone.container }> 
+				<div class= { style_iphone.container }>
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null } */}
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.addTempData }/ > : null } */}
 				</div>
@@ -168,7 +171,7 @@ export default class Iphone extends Component {
 
 	parseResponse = (parsed_json) => {
 		// THIS IS FOR DAY ONE (CURRENT DAY), WE NEED TO STORE THE 7 DAYS
-		
+
 		// var location = parsed_json['name'];
 		var location = parsed_json['city']['name'];
 		// var temp_c = parsed_json['main']['temp'];

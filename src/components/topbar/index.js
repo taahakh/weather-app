@@ -5,6 +5,7 @@ import Popup from '../Popup/Popup';
 // import DatePicker from 'react-datepicker';
 import style from './style.less';
 
+
 // import "react-datepicker/dist/react-datepicker.css"
 
 export default class TopBar extends Component {
@@ -18,6 +19,7 @@ export default class TopBar extends Component {
 	}
 
 	render() {
+
 		// const DatePicker = () => {
 		// 	const [date, setDate] = useState('')
 		// 	const dateInputRef = useRef(null);
@@ -27,6 +29,7 @@ export default class TopBar extends Component {
 
 
 		// };
+
   //  const [startDate, setStartDate] = useState(new Date());
 
 		const today = new Date().getDay();
