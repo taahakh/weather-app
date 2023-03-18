@@ -13,6 +13,10 @@ import Description from '../sideTubes/description';
 import Stats from '../sideTubes/stats';
 import WeatherDescription from '../sideTubes/description';
 
+function kelvinToCelsius(kelvin){
+	return (kelvin-273.15).toFixed(1);
+}
+
 export default class Iphone extends Component {
 //var Iphone = React.createClass({
 
@@ -23,13 +27,16 @@ export default class Iphone extends Component {
 		this.state.temp = "";
 		// button display state
 		this.setState({ display: true });
+
 		// API ID
 		this.state.appid = "9addb593cb28a2e3bb3a643c14d0ef8a";
 
 		navigator.geolocation.getCurrentPosition((position) => {
-			this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
+			//this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
 			// this.addTempData(position.coords.latitude, position.coords.longitude);
 		});
+
+		this.addTempData("","");
 	}
 
 	// a call to fetch weather data via wunderground
@@ -115,7 +122,7 @@ export default class Iphone extends Component {
 		}
 
 		this.setState({
-			background_img : background_img
+			background_img
 		});
 
 	}
