@@ -101,15 +101,15 @@ export default class Iphone extends Component {
 		if (code >= 200 || code <= 299) { // Thunderstorm
 
 		} else if (code >= 300 || code <= 399) { // Drizzle
-			
-		} else if (code >= 500 || code <= 599) { // Rain 
-			
-		} else if (code >= 600 || code <= 699) { // Snow 
-			
-		} else if (code >= 700 || code <= 799) { // Atmosphere 
-			
-		} else if (code == 800) { // Clear 
-			
+
+		} else if (code >= 500 || code <= 599) { // Rain
+
+		} else if (code >= 600 || code <= 699) { // Snow
+
+		} else if (code >= 700 || code <= 799) { // Atmosphere
+
+		} else if (code == 800) { // Clear
+
 		} else { // Clouds
 
 		}
@@ -125,7 +125,7 @@ export default class Iphone extends Component {
 	render() {
 		// check if temperature data is fetched, if so add the sign styling to the page
 		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
-		
+
 		// display all weather data
 		return (
 			<div class={ style.container }>
@@ -153,7 +153,7 @@ export default class Iphone extends Component {
 				</div>  */}
 
 				<div class={ style.details }></div>
-				<div class= { style_iphone.container }> 
+				<div class= { style_iphone.container }>
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null } */}
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.addTempData }/ > : null } */}
 				</div>
@@ -163,7 +163,7 @@ export default class Iphone extends Component {
 
 	parseResponse = (parsed_json) => {
 		// THIS IS FOR DAY ONE (CURRENT DAY), WE NEED TO STORE THE 7 DAYS
-		
+
 		// var location = parsed_json['name'];
 		var location = parsed_json['city']['name'];
 		// var temp_c = parsed_json['main']['temp'];

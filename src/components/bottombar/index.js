@@ -57,7 +57,18 @@ export default class BottomBar extends Component {
 				</button>
 				<Popup trigger={locationPopup} onClose={() => this.setState({ locationPopup: false })}>
 					<h3>Location</h3>
+<<<<<<< Updated upstream
 					<p>Insert Location Stuff Here...</p>
+=======
+					{/* <p>Insert Location Stuff Here...</p> */}
+					<input type="text" id="custom_loc" name="custom_loc"></input>
+					<button type="button" onClick={() => {
+						var custom_loc = document.getElementById("custom_loc").value;
+						console.log(custom_loc);
+						this.handleChangeTrigger(custom_loc);
+						this.setState({ locationPopup: false });
+					}}>Submit</button>
+>>>>>>> Stashed changes
 				</Popup>
 			</div>
 		);
