@@ -1,5 +1,5 @@
 // import preact
-import { h, render, Component } from 'preact';
+import { h, render, Component, useState } from 'preact';
 // import stylesheets for ipad & button
 import style from './style';
 import style_iphone from '../button/style_iphone';
@@ -8,6 +8,7 @@ import $ from 'jquery';
 // import the Button component
 import Button from '../button';
 import TopBar from '../topbar';
+import HourStates from '../topbar';
 import BottomBar from '../bottombar';
 import Description from '../sideTubes/description';
 import Stats from '../sideTubes/stats';
@@ -33,14 +34,15 @@ export default class Iphone extends Component {
 			appid: "9addb593cb28a2e3bb3a643c14d0ef8a",
 			data : [],
 			dayIndex : 0,
+			pageSwitch : false
 		  };
 
 		navigator.geolocation.getCurrentPosition((position) => {
-			// this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
+			this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
 			// this.addTempData(position.coords.latitude, position.coords.longitude);
 		});
 
-		this.addTempData("","");
+		// this.addTempData("","");
 
 	}
 
@@ -143,11 +145,47 @@ export default class Iphone extends Component {
 		} else if (code == 800) { // Clear
 			bg = "../../assets/backgrounds/c.jpg";
 		} else { // Clouds
-
+			bg = "../../assets/backgrounds/c.jpg";
 		}
 
 		this.setState({ background : bg });
 
+	}
+
+	handlePageSwitch = () => {
+		console.log(this.state.pageSwitch);
+		this.setState({
+			pageSwitch : !this.state.pageSwitch
+		})
+		// this.state.pageSwitch = !this.state.pageSwitch;
+	}
+
+	homePage = () => {
+		return (
+			// <div class={style.container}>
+			<div class={ style.sidebarcontainer }>
+				<div class={style.sidebarleft}>
+					<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
+				</div>
+				<div class={style.sidebarright}>
+					<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} />
+				</div>
+		   	</div>
+		);
+	};
+
+	detailedPage = () => {
+		return (
+			// <div class={style.container}>
+			<div class={ style.sidebarcontainer }>
+				{/* <div class={style.sidebarleft}>
+					<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
+				</div>
+				<div class={style.sidebarright}>
+					<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} />
+				</div> */}
+		   	</div>
+		);
 	}
 
 
@@ -161,24 +199,27 @@ export default class Iphone extends Component {
 			<div class={ style.container } style={{backgroundImage: `url(${this.state.background})`}}>
 				<div class={style.topbar}>
 					<TopBar days={this} />
+					{/* <HourStates /> */}
 				</div>
-				<div class={ style.sidebarcontainer } >
-					{/* <p> HELL</p> */}
-					<div class={style.sidebarleft}>
-						<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
+					{!this.state.pageSwitch ? this.homePage() : this.detailedPage() }		
+				{/* <div class={ style.sidebarcontainer } > */}
+					{/* {this.homePage()} */}
+					{/* <div class={style.sidebarleft}>
+						<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />			
 					</div>
 					<div class={style.sidebarright}>
 						<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} />
-					</div>
-				</div>
+					</div> */}
+				{/* </div> */}
 				<div class={style.bottombar}>
 					<BottomBar changeTrigger={this}/>
 				</div>
 
-				<div class={ style.details }></div>
+				{/* <div class={ style.details }></div> */}
 				<div class= { style_iphone.container }>
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null } */}
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.addTempData }/ > : null } */}
+					<button onClick={this.handlePageSwitch}>Transition</button>	
 				</div>
 			</div>
 		);
