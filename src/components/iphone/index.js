@@ -23,19 +23,20 @@ export default class Iphone extends Component {
 	// a constructor with initial set states
 	constructor(props){
 		super(props);
-		// temperature state
-		this.state.temp = "";
-		// button display state
-		this.setState({ display: true });
 
-		this.setState({ degreeType : "celcius" });
-		this.setState({ background : "../../assets/backgrounds/c.jpg" });
+		// this.setState({ background : "../../assets/backgrounds/c.jpg" });
 
-		// API ID
-		this.state.appid = "9addb593cb28a2e3bb3a643c14d0ef8a";
+		this.state = {
+			temp: "",
+			display: true,
+			degreeType: "celcius",
+			appid: "9addb593cb28a2e3bb3a643c14d0ef8a",
+			data : [],
+			dayIndex : 0,
+		  };
 
 		navigator.geolocation.getCurrentPosition((position) => {
-			//this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
+			// this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
 			// this.addTempData(position.coords.latitude, position.coords.longitude);
 		});
 
@@ -54,8 +55,6 @@ export default class Iphone extends Component {
 			this.state.lat = lat;
 			this.state.lon = lon;
 			url = "https://api.openweathermap.org/data/2.5/forecast/daily?lat="+lat.toString(10).substring(0,5)+"&lon="+lon.toString(10).substring(0,5)+"&cnt=7&&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
-			// POSTCODE LOCATION
-			// url = "https://api.openweathermap.org/data/2.5/forecast/daily?zip=ig6,GB&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
 		} else {
 			url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
 		}
@@ -111,6 +110,22 @@ export default class Iphone extends Component {
 		this.switchBackground(800);
 	}
 
+	showDayWeather = (index) => {
+		this.state.dayIndex = index;
+
+		this.setState({
+			temp: this.state.data[index].temp,
+			cond : this.state.data[index].cond,
+			descAPI : this.state.data[index].descAPI,
+			pic : this.state.data[index].pic,
+			precipitation : this.state.data[index].precipitation,
+			wind : this.state.data[index].wind,
+			degreeType : this.state.data[index].degreeType
+		})
+
+		this.switchBackground(this.state.data[index].weatherID);
+	}
+
 	switchBackground = (code) => {
 
 		let bg;
@@ -145,7 +160,7 @@ export default class Iphone extends Component {
 		return (
 			<div class={ style.container } style={{backgroundImage: `url(${this.state.background})`}}>
 				<div class={style.topbar}>
-					<TopBar />
+					<TopBar days={this} />
 				</div>
 				<div class={ style.sidebarcontainer } >
 					{/* <p> HELL</p> */}
@@ -170,40 +185,79 @@ export default class Iphone extends Component {
 	}
 
 	parseResponse = (parsed_json) => {
-		// THIS IS FOR DAY ONE (CURRENT DAY), WE NEED TO STORE THE 7 DAYS
 
-		// var location = parsed_json['name'];
-		var location = parsed_json['city']['name'];
-		// var temp_c = parsed_json['main']['temp'];
-		var temp_c = parsed_json['list']['0']['temp']['max'];
-		temp_c = kelvinToCelsius(temp_c);
-		// var conditions = parsed_json['weather']['0']['description'];
-		var conditions = parsed_json['list']['0']['weather']['0']['description'];
-		// var pic = parsed_json['weather']['0']['icon'];
-		var pic = parsed_json['list']['0']['weather']['0']['icon'];
-		// Getting weather id for background image
-		var weather_id = parsed_json['list']['0']['weather']['0']['id'];
-		// Precipitation
-		var precipitation = parsed_json['list']['0']['pop'];
-		// Wind
-		var wind = parsed_json['list']['0']['speed'];
+		const location = parsed_json['city']['name'];
 
-		// var dataUpdate = this.state.dataUpdate === 0 ? 1 : 0;
+		const list = parsed_json.list;
+		const weatherData = [];
 
-		console.log(temp_c);
+		for (let i = 0; i < list.length && i < 7; i++) {
+			const temp_c = kelvinToCelsius(list[i].temp.max);
+			const conditions = list[i].weather[0].description;
+			const pic = list[i].weather[0].icon;
+			const weather_id = list[i].weather[0].id;
+			const precipitation = list[i].pop;
+			const wind = list[i].speed;
 
-		// set states for fields so they could be rendered later on
+			const weatherInfo = {
+				temp: temp_c,
+				cond: conditions,
+				descAPI: conditions,
+				pic: "https://openweathermap.org/img/wn/" + pic + "@4x.png",
+				precipitation: precipitation,
+				wind: wind,
+				weatherID : weather_id,
+				degreeType: "celcius"
+			};
+
+			weatherData.push(weatherInfo);
+		}
+
 		this.setState({
 			locate: location,
-			temp: temp_c,
-			cond : conditions,
-			descAPI : conditions,
-			pic : "https://openweathermap.org/img/wn/"+ pic +"@4x.png",
-			precipitation : precipitation,
-			wind : wind,
-			degreeType : "celcius"
+			data: weatherData,
+			degreeType: "celcius"
 		});
 
-		this.switchBackground(weather_id);
+		this.showDayWeather(this.state.dayIndex);
 	}
+
+
+		// parseResponse = (parsed_json) => {
+	// 	// THIS IS FOR DAY ONE (CURRENT DAY), WE NEED TO STORE THE 7 DAYS
+
+	// 	// var location = parsed_json['name'];
+	// 	var location = parsed_json['city']['name'];
+	// 	// var temp_c = parsed_json['main']['temp'];
+	// 	var temp_c = parsed_json['list']['0']['temp']['max'];
+	// 	temp_c = kelvinToCelsius(temp_c);
+	// 	// var conditions = parsed_json['weather']['0']['description'];
+	// 	var conditions = parsed_json['list']['0']['weather']['0']['description'];
+	// 	// var pic = parsed_json['weather']['0']['icon'];
+	// 	var pic = parsed_json['list']['0']['weather']['0']['icon'];
+	// 	// Getting weather id for background image
+	// 	var weather_id = parsed_json['list']['0']['weather']['0']['id'];
+	// 	// Precipitation
+	// 	var precipitation = parsed_json['list']['0']['pop'];
+	// 	// Wind
+	// 	var wind = parsed_json['list']['0']['speed'];
+
+	// 	// var dataUpdate = this.state.dataUpdate === 0 ? 1 : 0;
+
+	// 	console.log(temp_c);
+
+	// 	// set states for fields so they could be rendered later on
+	// 	this.setState({
+	// 		locate: location,
+	// 		temp: temp_c,
+	// 		cond : conditions,
+	// 		descAPI : conditions,
+	// 		pic : "https://openweathermap.org/img/wn/"+ pic +"@4x.png",
+	// 		precipitation : precipitation,
+	// 		wind : wind,
+	// 		degreeType : "celcius"
+	// 	});
+
+	// 	this.switchBackground(weather_id);
+	// }
 }
