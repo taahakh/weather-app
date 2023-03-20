@@ -8,11 +8,11 @@ import $ from 'jquery';
 // import the Button component
 import Button from '../button';
 import TopBar from '../topbar';
-import HourStates from '../topbar';
+import HourStates from '../topbar/hours';
 import BottomBar from '../bottombar';
 import Description from '../sideTubes/description';
 import Stats from '../sideTubes/stats';
-import WeatherDescription from '../sideTubes/description';
+// import WeatherDescription from '../sideTubes/description';
 
 function kelvinToCelsius(kelvin){
 	return (kelvin-273.15).toFixed(1);
@@ -178,12 +178,13 @@ export default class Iphone extends Component {
 		return (
 			// <div class={style.container}>
 			<div class={ style.sidebarcontainer }>
-				{/* <div class={style.sidebarleft}>
-					<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
+				<div class={style.sidebarleft}>
+					<HourStates />
+					{/* <Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} /> */}
 				</div>
 				<div class={style.sidebarright}>
-					<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} />
-				</div> */}
+					{/* <Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} /> */}
+				</div>
 		   	</div>
 		);
 	}
