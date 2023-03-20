@@ -18,6 +18,20 @@ function kelvinToCelsius(kelvin){
 	return (kelvin-273.15).toFixed(1);
 }
 
+// function ajaxError(req, err){
+// 	console.log('API call failed ' + err);
+// }
+
+
+// function ajaxError() {
+// 	console.log("API call failed");
+// 	this.addTempData("", "");
+// 	// const app = (
+// 	// 	<p>THERE was an API error call</p>
+// 	// )
+// 	// render(app, document.getElementById('api-weather-error'));
+// }
+
 export default class Iphone extends Component {
 //var Iphone = React.createClass({
 
@@ -56,16 +70,14 @@ export default class Iphone extends Component {
 		if(!(isNaN(lat) && isNaN(lon))) {
 			this.state.lat = lat;
 			this.state.lon = lon;
-			url = "https://api.openweathermap.org/data/2.5/forecast/daily?lat="+lat.toString(10).substring(0,5)+"&lon="+lon.toString(10).substring(0,5)+"&cnt=7&&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
+			// url = "https://api.openweathermap.org/data/2.5/forecast/daily?lat="+lat.toString(10).substring(0,5)+"&lon="+lon.toString(10).substring(0,5)+"&cnt=7&&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
+			// THIS BELOW IS A BAD URL, IT IS FOR TESTING PURPOSES
+			url = "https://api.openweathermap.org/data/2.5/forecast/daily?latSSSSSA="+lat.toString(10).substring(0,5)+"&lon="+lon.toString(10).substring(0,5)+"&cnt=7&&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
 		} else {
 			url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
 		}
 
 		console.log(url);
-
-		// API URL with a structure of : ttp://api.wunderground.com/api/key/feature/q/country-code/city.json
-		// var url = "http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&APPID=cf17e23b1d108b29a4d738d2084baf5";
-		// var url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
 
 		this.ajaxFetch(url, this.parseResponse);
 
@@ -88,8 +100,13 @@ export default class Iphone extends Component {
 			url: url,
 			dataType: "jsonp",
 			success : succ,
-			error : function(req, err){ console.log('API call failed ' + err); }
+			error : this.ajaxError
+			// error : function(req, err) {console.log('API call failed ' + err);}
 		});
+	}
+
+	ajaxError = () => {
+		this.addTempData("", "");
 	}
 
 	componentDidMount() {}
@@ -102,11 +119,11 @@ export default class Iphone extends Component {
 		}
 
 		this.setState({
-			locate: "Mile End",
-			temp: "20",
-			cond : "Nice weather",
-			descAPI : "Nice weaather descAPI",
-			pic : "https://openweathermap.org/img/wn/10d@4x.png"
+			locate: "API CALL FAILED",
+			temp: "Err",
+			cond : "Error",
+			descAPI : "API call for weather failed, search for location or try again later"
+			// pic : "https://openweathermap.org/img/wn/10d@4x.png"
 		});
 
 		this.switchBackground(800);
@@ -162,9 +179,9 @@ export default class Iphone extends Component {
 
 	homePage = () => {
 		return (
-			// <div class={style.container}>
-			<div class={ style.sidebarcontainer }>
+			<div id="info-container" class={ style.sidebarcontainer }>
 				<div class={style.sidebarleft}>
+					<p id="api-weather-error"></p>
 					<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
 				</div>
 				<div class={style.sidebarright}>
@@ -176,15 +193,8 @@ export default class Iphone extends Component {
 
 	detailedPage = () => {
 		return (
-			// <div class={style.container}>
-			<div class={ style.sidebarcontainer }>
-				<div class={style.sidebarleft}>
-					<HourStates />
-					{/* <Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} /> */}
-				</div>
-				<div class={style.sidebarright}>
-					{/* <Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} /> */}
-				</div>
+			<div id="info-container" class={ style.sidebarcontainer }>
+				<HourStates />
 		   	</div>
 		);
 	}
@@ -202,7 +212,7 @@ export default class Iphone extends Component {
 					<TopBar days={this} />
 					{/* <HourStates /> */}
 				</div>
-					{!this.state.pageSwitch ? this.homePage() : this.detailedPage() }		
+					{!this.state.pageSwitch ? this.homePage() : this.detailedPage()}		
 				{/* <div class={ style.sidebarcontainer } > */}
 					{/* {this.homePage()} */}
 					{/* <div class={style.sidebarleft}>
