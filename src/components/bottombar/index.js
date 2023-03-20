@@ -45,16 +45,16 @@ export default class BottomBar extends Component {
 				</button>
 				<Popup trigger={delaysPopup} onClose={() => this.setState({ delaysPopup: false })}>
 					<h3>Delays</h3>
-					{lineNames.sort((a, b) => {
-						if (lineStatuses[a] === 'Severe Delays') return -1;
-						if (lineStatuses[b] === 'Severe Delays') return 1;
-						if (lineStatuses[a] === 'Part suspended') return -1;
-						if (lineStatuses[b] === 'Part suspended') return 1;
-						if (lineStatuses[a] === 'Minor Delays') return -1;
-						if (lineStatuses[b] === 'Minor Delays') return 1;
-						return 0;}).map((lineName) => (<p style={{color: lineStatuses[lineName] === 'Severe Delays' ? 'red':
-								lineStatuses[lineName] === 'Part suspended' ? 'red': lineStatuses[lineName] === 'Minor Delays' ? '#e66e19': 'green', fontSize: '20px'}}>
-								{lineName}: {lineStatuses[lineName] || 'Loading...'}</p>))}
+						{lineNames.sort((a, b) => {
+							if (lineStatuses[a] === 'Severe Delays') return -1;
+							if (lineStatuses[b] === 'Severe Delays') return 1;
+							if (lineStatuses[a] === 'Part suspended') return -1;
+							if (lineStatuses[b] === 'Part suspended') return 1;
+							if (lineStatuses[a] === 'Minor Delays') return -1;
+							if (lineStatuses[b] === 'Minor Delays') return 1;
+							return 0;}).map((lineName) => (<p style={{color: lineStatuses[lineName] === 'Severe Delays' ? 'red':
+								lineStatuses[lineName] === 'Part suspended' ? 'red': lineStatuses[lineName] === 'Minor Delays' ? '#e66e19': 'green', fontSize: '17px'}}>
+							{lineName}: {lineStatuses[lineName] || 'Loading...'}</p>))}
 				</Popup>
 				<button onClick={() => this.setState({ locationPopup: true })} class={Style.delaysButton}>
 					Search Location
