@@ -212,11 +212,11 @@ export default class Iphone extends Component {
 					<TopBar days={this} />
 					{/* <HourStates /> */}
 				</div>
-					{!this.state.pageSwitch ? this.homePage() : this.detailedPage()}		
+					{!this.state.pageSwitch ? this.homePage() : this.detailedPage()}
 				{/* <div class={ style.sidebarcontainer } > */}
 					{/* {this.homePage()} */}
 					{/* <div class={style.sidebarleft}>
-						<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />			
+						<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
 					</div>
 					<div class={style.sidebarright}>
 						<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} />
@@ -230,7 +230,7 @@ export default class Iphone extends Component {
 				<div class= { style_iphone.container }>
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null } */}
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.addTempData }/ > : null } */}
-					<button onClick={this.handlePageSwitch}>Transition</button>	
+					<button onClick={this.handlePageSwitch}>Transition</button>
 				</div>
 			</div>
 		);
