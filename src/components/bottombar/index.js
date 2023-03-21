@@ -43,24 +43,25 @@ export default class BottomBar extends Component {
 				<button onClick={() => this.setState({ delaysPopup: true })} class={Style.delaysButton}>
 					Delays
 				</button>
-				<Popup trigger={delaysPopup} onClose={() => this.setState({ delaysPopup: false })}>
-					<h3>Delays</h3>
-						{lineNames.sort((a, b) => {
-							if (lineStatuses[a] === 'Severe Delays') return -1;
-							if (lineStatuses[b] === 'Severe Delays') return 1;
-							if (lineStatuses[a] === 'Part suspended') return -1;
-							if (lineStatuses[b] === 'Part suspended') return 1;
-							if (lineStatuses[a] === 'Minor Delays') return -1;
-							if (lineStatuses[b] === 'Minor Delays') return 1;
-							return 0;}).map((lineName) => (<p style={{color: lineStatuses[lineName] === 'Severe Delays' ? 'red':
-								lineStatuses[lineName] === 'Part suspended' ? 'red': lineStatuses[lineName] === 'Minor Delays' ? '#e66e19': 'green', fontSize: '17px'}}>
-							{lineName}: {lineStatuses[lineName] || 'Loading...'}</p>))}
+				<Popup position="top:0" trigger={delaysPopup} onClose={() => this.setState({ delaysPopup: false })}>
+					<h4 style="margin-top: 0px; margin-bottom: 20px;"><u>Delays</u></h4>
+					{lineNames.sort((a, b) => {
+						if (lineStatuses[a] === 'Severe Delays') return -1;
+						if (lineStatuses[b] === 'Severe Delays') return 1;
+						if (lineStatuses[a] === 'Part Suspended') return -1;
+						if (lineStatuses[b] === 'Part Suspended') return 1;
+						if (lineStatuses[a] === 'Minor Delays') return -1;
+						if (lineStatuses[b] === 'Minor Delays') return 1;
+						return 0;}).map((lineName) => (<p style={{color: lineStatuses[lineName] === 'Severe Delays' ? 'red':
+								lineStatuses[lineName] === 'Part Suspended' ? 'red': lineStatuses[lineName] === 'Minor Delays' ? '#e66e19': 'green', fontSize: '18px', margin: '12px'}}>
+								{lineName}: {lineStatuses[lineName] || 'Loading...'}</p>))}
 				</Popup>
+
 				<button onClick={() => this.setState({ locationPopup: true })} class={Style.delaysButton}>
 					Search Location
 				</button>
 				<Popup trigger={locationPopup} onClose={() => this.setState({ locationPopup: false })}>
-					<h3>Location</h3>
+					<h4 style="margin-top: 0px;"><u>Location</u></h4>
 					{/* <p>Insert Location Stuff Here...</p> */}
 					<input type="text" id="custom_loc" name="custom_loc" class={Style.locationSearch}></input>
 					<button type="button" class={Style.locationSubmit} onClick={() => {
