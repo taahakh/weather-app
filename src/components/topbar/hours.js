@@ -1,5 +1,6 @@
 // import Preact from 'preact';
 import style from './style.less';
+
 import { h, render, Component } from 'preact';
 // import React, {useState} from 'react';
 // import "react-datepicker/dist/react-datepicker.css"
@@ -19,6 +20,7 @@ export default class HourStates extends Component {
         render() {
 
             return (
+            
             <div class = {style.hours}>
                 <ul>
                     {this.state.stats.map(item => (
@@ -29,6 +31,7 @@ export default class HourStates extends Component {
                                     <p class = {style.item}>{item.windR}</p>
                                     <p class = {style.item}>{item.pressure}</p>
                                     <p class = {style.item} >{item.hour}</p>
+
                                 </li>          
                     ))}
                 </ul>

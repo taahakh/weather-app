@@ -3,11 +3,18 @@
 // 580 px height
 
 .desc_name {
-    width: 100%;
-    height: 30px;
     color: black;
     font-size: 40px;
     text-decoration: underline;
+  font-family: Arial Rounded MT Bold, serif;
+}
+
+.statName {
+  width: 100%;
+  height: 30px;
+  color: black;
+  font-size: 30px;
+  text-decoration: underline;
   font-family: Arial Rounded MT Bold, serif;
 }
 
@@ -25,7 +32,7 @@
     font-style: italic;
     font-size: 30px;
     color: black;
-    width: 100%;
+  width: 100%;
     height: 308px;
   font-family: Verdana, sans-serif;
     // border: 1px solid red;
@@ -34,13 +41,18 @@
 
 .right_side {
   color:black;
+  background-color: #E0E0E0;
+  border: 3px solid black;
+  border-radius: 25px;
+  padding: 3px 1px;
+  margin: 60px 10px;
+  height: 87%;
 }
 
 .stats_list {
   list-style-type:none;
   display:inline-block;
   position: relative;
-  
 }
 
 .right_side li {
@@ -54,9 +66,15 @@
   clear:both;
 }
 
+.infoImage {
+  max-width: 30%;
+  margin: -1px -25px;
+}
+
 .right_side li p {
   margin-left: 0px;
   overflow:auto;
   font-size: 25px;
   display:block;
 }
+
