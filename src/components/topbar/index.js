@@ -1,4 +1,3 @@
-
 import { h, render, Component } from 'preact';
 import Popup from '../Popup/Popup';
 // import React, {useState} from 'react';
@@ -58,3 +57,4 @@ export default class TopBar extends Component {
 
 	}
 }
+
