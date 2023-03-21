@@ -23,7 +23,7 @@ export default class HourStates extends Component {
                 <ul>
                     {this.state.stats.map(item => (
                                 <li key = {item.hour}>
-                                    <img src = 'https://ibb.co/3yvSktT' class = {style.item}/>
+                                    <img src = {this.props.icon} class = {style.item}/>
                                     <p class = {style.item}>{item.temp}</p>
                                     <p class = {style.item}>{item.precipitation}</p>
                                     <p class = {style.item}>{item.windR}</p>
