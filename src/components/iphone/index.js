@@ -70,9 +70,9 @@ export default class Iphone extends Component {
 		if(!(isNaN(lat) && isNaN(lon))) {
 			this.state.lat = lat;
 			this.state.lon = lon;
-			// url = "https://api.openweathermap.org/data/2.5/forecast/daily?lat="+lat.toString(10).substring(0,5)+"&lon="+lon.toString(10).substring(0,5)+"&cnt=7&&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
+			url = "https://api.openweathermap.org/data/2.5/forecast/daily?lat="+lat.toString(10).substring(0,5)+"&lon="+lon.toString(10).substring(0,5)+"&cnt=7&&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
 			// THIS BELOW IS A BAD URL, IT IS FOR TESTING PURPOSES
-			url = "https://api.openweathermap.org/data/2.5/forecast/daily?latSSSSSA="+lat.toString(10).substring(0,5)+"&lon="+lon.toString(10).substring(0,5)+"&cnt=7&&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
+			// url = "https://api.openweathermap.org/data/2.5/forecast/daily?latSSSSSA="+lat.toString(10).substring(0,5)+"&lon="+lon.toString(10).substring(0,5)+"&cnt=7&&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
 		} else {
 			url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
 		}

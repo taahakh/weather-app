@@ -1,6 +1,6 @@
 // import preact
 import { h, render, Component } from 'preact';
-import style from './style.less';
+import style from './style';
 
 export default class WeatherStats extends Component {
 	constructor(props){
