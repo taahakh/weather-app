@@ -1,68 +1,60 @@
 
 import { h, render, Component } from 'preact';
 import Popup from '../Popup/Popup';
-import React, {useState} from 'react';
-import DatePicker from 'react-datepicker';
-import style from './style';
+// import React, {useState} from 'react';
+// import DatePicker from 'react-datepicker';
+import style from './style.less';
 
-import "react-datepicker/dist/react-datepicker.css"
+
+// import "react-datepicker/dist/react-datepicker.css"
 
 export default class TopBar extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			buttonPopup: false
+			buttonPopup: false,
+			days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 		};
 	}
 
-    render() {
-		const DatePicker = () => {
-			const [date, setDate] = useState('')
-			const dateInputRef = useRef(null);
-			const handleChange = (e) => {
-			setDate
-    };
+	render() {
+
+		// const DatePicker = () => {
+		// 	const [date, setDate] = useState('')
+		// 	const dateInputRef = useRef(null);
+		// 	const handleChange = (e) => {
+		// 	setDate
+		// 	};
 
 
-};
+		// };
+
   //  const [startDate, setStartDate] = useState(new Date());
-       return (
+
+		const today = new Date().getDay();
+		const daysList = [];
+
+		for (let i = 0; i < 7; i++) {
+			const dayIndex = (today + i) % 7;
+			const day = this.state.days[dayIndex];
+			daysList.push(<div class={style.dayInner} key={i} onClick={() => this.props.days.showDayWeather(i)}>{day}</div>);
+		}
+
+		return (
        			<div className="bottom-bar">
-				<table border="1">
-				<tr>
-					<td colspan="7" align = "center" >
-						<div>
-       						<input type="date"/>
-       					</div>
-       				</td>
-       			</tr>
-       			<tr>
-       			<td class={ style.day }>Thur</td>
-       			<td class={ style.day }>Tue</td>
-       			<td class={ style.day }>Wed</td>
-       			<td class={ style.day }>Thur</td>
-       			<td class={ style.day }>Fri</td>
-       			<td class={ style.day }>Sat</td>
-       			<td class={ style.day }>Sun</td>
-       			</tr>
-				</table>
-       			<div>
+					{/* <div align="center">
+						<input type="date" class={style.calendar}/>
+					</div> */}
+					<div class={style.dayOuter}>
+						{daysList}
+					</div>
+				   </div>
 
-       			</div>
-       				<button onClick={() => this.setState({ buttonPopup: true })}>
-       					Location
-       				</button>
-       				<Popup trigger={this.state.buttonPopup} onClose={() => this.setState({ buttonPopup: false })}>
-       					<h3>Location</h3>
-       					<p>Insert Location Here...</p>
-       				</Popup>
 
-       			</div>
-
-       		);
+		);
 
 
 
-    }
+	}
 }
