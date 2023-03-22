@@ -18,20 +18,6 @@ function kelvinToCelsius(kelvin){
 	return (kelvin-273.15).toFixed(1);
 }
 
-// function ajaxError(req, err){
-// 	console.log('API call failed ' + err);
-// }
-
-
-// function ajaxError() {
-// 	console.log("API call failed");
-// 	this.addTempData("", "");
-// 	// const app = (
-// 	// 	<p>THERE was an API error call</p>
-// 	// )
-// 	// render(app, document.getElementById('api-weather-error'));
-// }
-
 export default class Iphone extends Component {
 //var Iphone = React.createClass({
 
@@ -48,7 +34,8 @@ export default class Iphone extends Component {
 			appid: "9addb593cb28a2e3bb3a643c14d0ef8a",
 			data : [],
 			dayIndex : 0,
-			pageSwitch : false
+			pageSwitch : false,
+			hourlyData : {}
 		  };
 
 		navigator.geolocation.getCurrentPosition((position) => {
@@ -95,13 +82,12 @@ export default class Iphone extends Component {
 		this.ajaxFetch(url, this.parseResponse);
 	}
 
-	ajaxFetch = (url, succ) => {
+	ajaxFetch = (url, succ, err=this.ajaxError) => {
 		$.ajax({
 			url: url,
 			dataType: "jsonp",
 			success : succ,
-			error : this.ajaxError
-			// error : function(req, err) {console.log('API call failed ' + err);}
+			error : err
 		});
 	}
 
@@ -132,6 +118,15 @@ export default class Iphone extends Component {
 	showDayWeather = (index) => {
 		this.state.dayIndex = index;
 
+		// // convert index to date and set it
+		// var date = new Date();
+		// date.setDate(date.getDate() + index);
+		// // convert date to string into format 2023-03-22
+		// var dateStr = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+		// // the month and day values need to be padded with 0s
+		// dateStr = dateStr.replace(/-(\d)-/g, "-0$1-");
+		// console.log(dateStr);
+
 		this.setState({
 			temp: this.state.data[index].temp,
 			cond : this.state.data[index].cond,
@@ -139,10 +134,35 @@ export default class Iphone extends Component {
 			pic : this.state.data[index].pic,
 			precipitation : this.state.data[index].precipitation,
 			wind : this.state.data[index].wind,
-			degreeType : this.state.data[index].degreeType
+			degreeType : this.state.data[index].degreeType,
+			pressure : this.state.data[index].pressure
 		});
 
+		// this.showDetailedDayWeather(index);
+		
 		this.switchBackground(this.state.data[index].weatherID);
+	}
+
+	showDetailedDayWeather = (index) => { 
+		// if (this.state.hourlyData[index] !== undefined) {
+		console.log("index: " + index);
+		// convert index to date and set it
+		var date = new Date();
+		date.setDate(date.getDate() + index);
+		// convert date to string into format 2023-03-22
+		var dateStr = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+		// the month and day values need to be padded with 0s
+		dateStr = dateStr.replace(/-(\d)-/g, "-0$1-");
+
+		console.log(this.state.hourlyData[dateStr]);
+
+		this.setState({ detailedPageInfo : this.state.hourlyData[dateStr] });
+		// }
+	}
+
+	showDayHandler = (index) => { 
+		this.showDayWeather(index);
+		this.showDetailedDayWeather(index);
 	}
 
 	switchBackground = (code) => {
@@ -185,7 +205,7 @@ export default class Iphone extends Component {
 					<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
 				</div>
 				<div class={style.sidebarright}>
-					<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} />
+					<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} pressure={this.state.pressure} windR={this.state.wind} />
 				</div>
 			</div>
 		);
@@ -194,8 +214,8 @@ export default class Iphone extends Component {
 	detailedPage = () => {
 		return (
 			<div id="info-container" class={ style.sidebarcontainer }>
-				<HourStates />
-			</div>
+				<HourStates info={this.state.detailedPageInfo} />
+		   	</div>
 		);
 	}
 
@@ -213,15 +233,6 @@ export default class Iphone extends Component {
 					{/* <HourStates /> */}
 				</div>
 					{!this.state.pageSwitch ? this.homePage() : this.detailedPage()}
-				{/* <div class={ style.sidebarcontainer } > */}
-					{/* {this.homePage()} */}
-					{/* <div class={style.sidebarleft}>
-						<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
-					</div>
-					<div class={style.sidebarright}>
-						<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} />
-					</div> */}
-				{/* </div> */}
 				<div class={style.bottombar}>
 					<BottomBar changeTrigger={this}/>
 				</div>
@@ -250,6 +261,7 @@ export default class Iphone extends Component {
 			const weather_id = list[i].weather[0].id;
 			const precipitation = list[i].pop;
 			const wind = list[i].speed;
+			const pressure = list[i].pressure;
 
 			const weatherInfo = {
 				temp: temp_c,
@@ -259,7 +271,8 @@ export default class Iphone extends Component {
 				precipitation: precipitation,
 				wind: wind,
 				weatherID : weather_id,
-				degreeType: "celcius"
+				degreeType: "celcius",
+				pressure: pressure
 			};
 
 			weatherData.push(weatherInfo);
@@ -272,6 +285,63 @@ export default class Iphone extends Component {
 		});
 
 		this.showDayWeather(this.state.dayIndex);
+
+		let hourlyUrl = "https://api.openweathermap.org/data/2.5/forecast?lat="+this.state.lat.toString(10).substring(0,5)+"&lon="+this.state.lon.toString(10).substring(0,5)+"&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
+
+		this.ajaxFetch(hourlyUrl, this.parseHourlyResponse, function(req, err) {
+			console.log("Error: " + err);
+		});
+		
+	}
+
+	parseHourlyResponse = (parsed_json) => {
+
+		const list = parsed_json.list;
+		const days = {};
+
+		// Per Day
+		for (let i = 0; i < list.length && i < 40; i++) {
+			const stringSplit = list[i].dt_txt.split(" ");
+			const date = stringSplit[0];
+			const hour = stringSplit[1];
+
+			// console.log("Date: " + date + " Hour: " + hour);
+
+			// check if date is already in days
+			if (days[date] === undefined) {
+				days[date] = [];
+			}
+
+			// Per Hour
+			const pic = list[i].weather[0].icon;
+			const temp = kelvinToCelsius(list[i].main.temp);
+			const precipitation = list[i].pop;
+			const wind = list[i].wind.speed;
+			const pressure = list[i].main.pressure;
+			
+
+			const weatherHour = {
+				pic: "https://openweathermap.org/img/wn/" + pic + "@2x.png",
+				temp: temp,
+				precipitation: precipitation,
+				wind: wind,
+				pressure: pressure,
+				hour: hour
+			};
+
+			days[date].push(weatherHour);
+		}
+
+		this.setState({
+			hourlyData: days
+		});
+
+		// print all keys for days in console
+		for (const key in days) {
+			console.log(key);
+		}
+
+		this.showDetailedDayWeather(this.state.dayIndex);
 	}
 
 
