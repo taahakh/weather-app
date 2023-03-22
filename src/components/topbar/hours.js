@@ -8,28 +8,17 @@ import { h, render, Component } from 'preact';
 
 export default class HourStates extends Component {
 
-	// const initalStats = [{hour: '', temp:'', precipitation:'', windR:'', pressure:''}]
-	// const [stats, setStats] = useState(initalStats);
-
 	constructor(props) {
 		super(props);
-		this.state = {
-			stats: [{
-				hour: '19:00',
-				temp: '20c',
-				precipitation: '100%',
-				windR: '50km/h',
-				pressure: '30pascals'
-			}]
-		};
+		this.state = {stats : [{hour: '19:00', temp:'20c', precipitation:'100%', windR:'50km/h', pressure:'30pascals'}]};
 	}
 
 
 	render() {
 
 		return (
-
 			<div class={style.hours}>
+				<button class={style.transitionButton} onClick={this.props.switch}>Daily Summary</button>
 				<ul>
 					{this.props.info !== undefined ?
 						this.props.info.map(item => (

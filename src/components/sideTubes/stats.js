@@ -59,7 +59,7 @@ export default class WeatherStats extends Component {
 						<li>
 							<img src ='https://cdn-icons-png.flaticon.com/512/2945/2945800.png' class={style.infoImage}/>
 							{/* <p>{this.state.uv}</p> */}
-							<p>{this.props.uv}</p>
+							<p>{this.props.pressure}hPa</p>
 						</li>
 					</ul>
 				</div>

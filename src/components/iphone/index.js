@@ -139,10 +139,32 @@ export default class Iphone extends Component {
 			pic : this.state.data[index].pic,
 			precipitation : this.state.data[index].precipitation,
 			wind : this.state.data[index].wind,
-			degreeType : this.state.data[index].degreeType
+			degreeType : this.state.data[index].degreeType,
+			pressure : this.state.data[index].pressure
 		});
 
 		this.switchBackground(this.state.data[index].weatherID);
+	}
+
+	showDetailedDayWeather = (index) => {
+		// if (this.state.hourlyData[index] !== undefined) {
+		console.log("index: " + index);
+		// convert index to date and set it
+		const date = new Date();
+		date.setDate(date.getDate() + index);
+		// convert date to string into format 2023-03-22
+		let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+		// the month and day values need to be padded with 0s
+		dateStr = dateStr.replace(/-(\d)-/g, "-0$1-");
+
+		console.log(this.state.hourlyData[dateStr]);
+		this.setState({ detailedPageInfo : this.state.hourlyData[dateStr] });
+		// }
+	}
+
+	showDayHandler = (index) => {
+		this.showDayWeather(index);
+		this.showDetailedDayWeather(index);
 	}
 
 	switchBackground = (code) => {
@@ -182,10 +204,10 @@ export default class Iphone extends Component {
 			<div id="info-container" class={ style.sidebarcontainer }>
 				<div class={style.sidebarleft}>
 					<p id="api-weather-error"></p>
-					<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
+					<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} switch={this.handlePageSwitch} />
 				</div>
 				<div class={style.sidebarright}>
-					<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} uv="NONE" windR={this.state.wind} />
+					<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} pressure={this.state.pressure} windR={this.state.wind} />
 				</div>
 			</div>
 		);
@@ -194,7 +216,7 @@ export default class Iphone extends Component {
 	detailedPage = () => {
 		return (
 			<div id="info-container" class={ style.sidebarcontainer }>
-				<HourStates />
+				<HourStates info={this.state.detailedPageInfo} switch={this.handlePageSwitch}/>
 			</div>
 		);
 	}
@@ -227,11 +249,11 @@ export default class Iphone extends Component {
 				</div>
 
 				{/* <div class={ style.details }></div> */}
-				<div class= { style_iphone.container }>
+				{/*div class= { style_iphone.container }>*/}
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null } */}
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.addTempData }/ > : null } */}
-				<button onClick={this.handlePageSwitch}>Transition</button>
-				</div>
+				{/*<button onClick={this.handlePageSwitch}>Transition</button>*/}
+				{/*</div>*/}
 			</div>
 		);
 	}
