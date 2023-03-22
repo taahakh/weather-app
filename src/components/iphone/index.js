@@ -1,8 +1,8 @@
 // import preact
 import { h, render, Component, useState } from 'preact';
 // import stylesheets for ipad & button
-import style from './style';
-import style_iphone from '../button/style_iphone';
+import style from './style.less';
+import style_iphone from '../button/style_iphone.less';
 // import jquery for API calls
 import $ from 'jquery';
 // import the Button component
@@ -54,7 +54,7 @@ export default class Iphone extends Component {
 
 		console.log(lat, lon);
 
-		if(!(isNaN(lat) && isNaN(lon))) {
+		if (!(isNaN(lat) && isNaN(lon))) {
 			this.state.lat = lat;
 			this.state.lon = lon;
 			url = "https://api.openweathermap.org/data/2.5/forecast/daily?lat="+lat.toString(10).substring(0,5)+"&lon="+lon.toString(10).substring(0,5)+"&cnt=7&&appid=9addb593cb28a2e3bb3a643c14d0ef8a";
@@ -207,7 +207,7 @@ export default class Iphone extends Component {
 				<div class={style.sidebarright}>
 					<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} pressure={this.state.pressure} windR={this.state.wind} />
 				</div>
-		   	</div>
+			</div>
 		);
 	};
 
@@ -241,7 +241,7 @@ export default class Iphone extends Component {
 				<div class= { style_iphone.container }>
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null } */}
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.addTempData }/ > : null } */}
-					<button onClick={this.handlePageSwitch}>Transition</button>
+				<button onClick={this.handlePageSwitch}>Transition</button>
 				</div>
 			</div>
 		);
