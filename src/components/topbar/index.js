@@ -19,25 +19,13 @@ export default class TopBar extends Component {
 
 	render() {
 
-		// const DatePicker = () => {
-		// 	const [date, setDate] = useState('')
-		// 	const dateInputRef = useRef(null);
-		// 	const handleChange = (e) => {
-		// 	setDate
-		// 	};
-
-
-		// };
-
-  //  const [startDate, setStartDate] = useState(new Date());
-
 		const today = new Date().getDay();
 		const daysList = [];
 
 		for (let i = 0; i < 7; i++) {
 			const dayIndex = (today + i) % 7;
 			const day = this.state.days[dayIndex];
-			daysList.push(<div class={style.dayInner} key={i} onClick={() => this.props.days.showDayWeather(i)}>{day}</div>);
+			daysList.push(<div class={style.dayInner} key={i} onClick={() => this.props.days.showDayHandler(i)}>{day}</div>);
 		}
 
 		return (
