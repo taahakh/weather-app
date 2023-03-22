@@ -11,16 +11,16 @@ export default class HourStates extends Component {
     // const initalStats = [{hour: '', temp:'', precipitation:'', windR:'', pressure:''}]
     // const [stats, setStats] = useState(initalStats);
 
-    constructor(props) {
-        super(props);
-        this.state = {stats : [{hour: '19:00', temp:'20c', precipitation:'100%', windR:'50km/h', pressure:'30pascals'}]};
-    }
+	constructor(props) {
+		super(props);
+		this.state = {stats : [{hour: '19:00', temp:'20c', precipitation:'100%', windR:'50km/h', pressure:'30pascals'}]};
+	}
 
 
-        render() {
+	render() {
 
-            return (
-            
+		return (
+
             <div class = {style.hours}>
                 <ul>
                     {this.state.stats.map(item => (
@@ -31,14 +31,12 @@ export default class HourStates extends Component {
                                     <p class = {style.item}>{item.windR}</p>
                                     <p class = {style.item}>{item.pressure}</p>
                                     <p class = {style.item} >{item.hour}</p>
-
-                                </li>          
+                                </li>
                     ))}
                 </ul>
             </div>
-            );
-        }
+		);
+	}
 
 
-};
-    
+}

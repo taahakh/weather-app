@@ -1,8 +1,8 @@
 // import preact
 import { h, render, Component } from 'preact';
 
-import style from './style';
-import '../../assets/weather-icons/less/weather-icons'
+import style from './style.less';
+import '../../assets/weather-icons/less/weather-icons';
 
 export default class WeatherDescription extends Component {
 
@@ -12,7 +12,8 @@ export default class WeatherDescription extends Component {
 		this.setState({
 			locate : props.locate,
 			desc : props.descAPI,
-			pic : props.pic
+			pic : props.pic,
+			pageSwitch : props.pageSwitch
 		});
 	}
 
