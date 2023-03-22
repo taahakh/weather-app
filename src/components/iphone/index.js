@@ -160,7 +160,7 @@ export default class Iphone extends Component {
 		// }
 	}
 
-	showDayHandler = (index) => { 
+  showDayHandler = (index) => {
 		this.showDayWeather(index);
 		this.showDetailedDayWeather(index);
 	}
@@ -202,7 +202,7 @@ export default class Iphone extends Component {
 			<div id="info-container" class={ style.sidebarcontainer }>
 				<div class={style.sidebarleft}>
 					<p id="api-weather-error"></p>
-					<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} />
+					<Description locate={this.state.locate} desc={this.state.descAPI} pic={this.state.pic} switch={this.handlePageSwitch} />
 				</div>
 				<div class={style.sidebarright}>
 					<Stats degreeType={this.state.degreeType} temp={this.state.temp} precipitation={this.state.precipitation} pressure={this.state.pressure} windR={this.state.wind} />
@@ -214,8 +214,8 @@ export default class Iphone extends Component {
 	detailedPage = () => {
 		return (
 			<div id="info-container" class={ style.sidebarcontainer }>
-				<HourStates info={this.state.detailedPageInfo} />
-		   	</div>
+				<HourStates info={this.state.detailedPageInfo} switch={this.handlePageSwitch}/>
+			</div>
 		);
 	}
 
@@ -238,11 +238,11 @@ export default class Iphone extends Component {
 				</div>
 
 				{/* <div class={ style.details }></div> */}
-				<div class= { style_iphone.container }>
+				{/*div class= { style_iphone.container }>*/}
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null } */}
 					{/* { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.addTempData }/ > : null } */}
-				<button onClick={this.handlePageSwitch}>Transition</button>
-				</div>
+				{/*<button onClick={this.handlePageSwitch}>Transition</button>*/}
+				{/*</div>*/}
 			</div>
 		);
 	}

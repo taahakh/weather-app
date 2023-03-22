@@ -32,6 +32,7 @@ export default class WeatherDescription extends Component {
 					<p>
 						<p>"{ this.props.desc }"</p>
 					</p>
+					<button class={style.desc_button} onClick={this.props.switch}>Hourly Weather</button>
 				</div>
 			</div>
 		);
