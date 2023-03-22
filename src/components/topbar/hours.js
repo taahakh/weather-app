@@ -14,8 +14,6 @@ export default class HourStates extends Component {
 	}
 
 
-        render() {
-
 	render() {
 
 		return (
