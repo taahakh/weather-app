@@ -3,6 +3,7 @@ import { h, render, Component } from 'preact';
 import style from './style';
 
 export default class WeatherStats extends Component {
+	//setting up any variables to be used/values that are passed in
 	constructor(props){
 		super(props);
 		// this.state = {
@@ -17,6 +18,7 @@ export default class WeatherStats extends Component {
 		};
 	}
 
+	//feature for switching temperature to celsius or farenheit
 	handleTemperatureChange = () => {
 		if (this.props.degreeType === "celcius") {
 			this.props.degreeType = "fahrenheit";
@@ -39,6 +41,7 @@ export default class WeatherStats extends Component {
 	}
 
 
+	//main render for stats part of weather page
 	render() {
 		return (
 			<div class={style.right_side}>
@@ -68,6 +71,7 @@ export default class WeatherStats extends Component {
 	}
 }
 
+//methods to convert celsius to farenheit and vice versa
 function celsiusToFahrenheit(celsius) {
 	const fahrenheit = (celsius * 9/5) + 32;
 	return fahrenheit.toFixed(1);

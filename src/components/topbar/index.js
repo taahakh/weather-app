@@ -9,6 +9,7 @@ import style from './style.less';
 
 export default class TopBar extends Component {
 
+	//setting up the top bar with the days to select from
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -17,6 +18,7 @@ export default class TopBar extends Component {
 		};
 	}
 
+	//main render for top bar
 	render() {
 
 		const today = new Date().getDay();
@@ -29,6 +31,7 @@ export default class TopBar extends Component {
 		}
 
 		return (
+			// eslint-disable-next-line no-mixed-spaces-and-tabs
        			<div className="bottom-bar">
 					{/* <div align="center">
 						<input type="date" class={style.calendar}/>

@@ -6,6 +6,7 @@ import '../../assets/weather-icons/less/weather-icons';
 
 export default class WeatherDescription extends Component {
 
+	//setting up values passed into js file to local variables
 	constructor(props){
 		super(props);
 		// this.state.desc = props.desc;
@@ -17,7 +18,7 @@ export default class WeatherDescription extends Component {
 		});
 	}
 
-
+	//main render for weather description of page
 	render() {
 		return (
 			<div>

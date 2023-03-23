@@ -104,6 +104,7 @@ export default class Iphone extends Component {
 			lon = this.state.lon;
 		}
 
+		//in case API call fails
 		this.setState({
 			locate: "API CALL FAILED",
 			temp: "Err",
@@ -115,6 +116,7 @@ export default class Iphone extends Component {
 		this.switchBackground(800);
 	}
 
+	//show daily summary of weather
 	showDayWeather = (index) => {
 		this.state.dayIndex = index;
 
@@ -139,11 +141,12 @@ export default class Iphone extends Component {
 		});
 
 		// this.showDetailedDayWeather(index);
-		
+
 		this.switchBackground(this.state.data[index].weatherID);
 	}
 
-	showDetailedDayWeather = (index) => { 
+	//show weather in hourly intervals
+	showDetailedDayWeather = (index) => {
 		// if (this.state.hourlyData[index] !== undefined) {
 		console.log("index: " + index);
 		// convert index to date and set it
@@ -160,11 +163,12 @@ export default class Iphone extends Component {
 		// }
 	}
 
-  showDayHandler = (index) => {
+	showDayHandler = (index) => {
 		this.showDayWeather(index);
 		this.showDetailedDayWeather(index);
 	}
 
+	//dynamic backgrounds according to weather
 	switchBackground = (code) => {
 
 		let bg;
@@ -189,6 +193,7 @@ export default class Iphone extends Component {
 
 	}
 
+	//handle switching from daily to hourly weather
 	handlePageSwitch = () => {
 		console.log(this.state.pageSwitch);
 		this.setState({
@@ -197,6 +202,7 @@ export default class Iphone extends Component {
 		// this.state.pageSwitch = !this.state.pageSwitch;
 	}
 
+	//daily weather page html
 	homePage = () => {
 		return (
 			<div id="info-container" class={ style.sidebarcontainer }>
@@ -211,6 +217,7 @@ export default class Iphone extends Component {
 		);
 	};
 
+	//hourly weather page html
 	detailedPage = () => {
 		return (
 			<div id="info-container" class={ style.sidebarcontainer }>
@@ -247,6 +254,7 @@ export default class Iphone extends Component {
 		);
 	}
 
+	//fetching api values and assigning to variables
 	parseResponse = (parsed_json) => {
 
 		const location = parsed_json['city']['name'];
@@ -291,7 +299,7 @@ export default class Iphone extends Component {
 		this.ajaxFetch(hourlyUrl, this.parseHourlyResponse, function(req, err) {
 			console.log("Error: " + err);
 		});
-		
+
 	}
 
 	parseHourlyResponse = (parsed_json) => {
@@ -318,7 +326,7 @@ export default class Iphone extends Component {
 			const precipitation = list[i].pop;
 			const wind = list[i].wind.speed;
 			const pressure = list[i].main.pressure;
-			
+
 
 			const weatherHour = {
 				pic: "https://openweathermap.org/img/wn/" + pic + "@2x.png",

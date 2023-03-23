@@ -3,6 +3,7 @@ import Popup from '../Popup/Popup';
 import Style from './style.less';
 
 export default class BottomBar extends Component {
+	//setting up values passed into file into variables
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -12,6 +13,7 @@ export default class BottomBar extends Component {
 		};
 	}
 
+	//setting up the tfl API
 	componentDidMount() {
 		const lineNames = ['Bakerloo', 'Central', 'Circle', 'District', 'Elizabeth', 'Hammersmith-city', 'Jubilee', 'Metropolitan', 'Northern', 'Piccadilly', 'Victoria', 'Waterloo-city', 'London-overground', 'DLR', 'Tram'];
 		lineNames.forEach(lineName => {
@@ -30,11 +32,14 @@ export default class BottomBar extends Component {
 		});
 	}
 
+	//setting up the location search
 	handleChangeTrigger = (custom_loc) => {
 		this.props.changeTrigger.onLocationChange(custom_loc);
 	}
 
+	//main render of bottom part of weather page
 	render() {
+		//Delays
 		const { delaysPopup, locationPopup, lineStatuses } = this.state;
 		const lineNames = ['Bakerloo', 'Central', 'Circle', 'District', 'Elizabeth', 'Hammersmith-city',
 			'Jubilee', 'Metropolitan', 'Northern', 'Piccadilly', 'Victoria', 'Waterloo-city', 'London-overground', 'DLR', 'Tram'];
@@ -57,6 +62,7 @@ export default class BottomBar extends Component {
 								{lineName}: {lineStatuses[lineName] || 'Loading...'}</p>))}
 				</Popup>
 
+				{/*search location*/}
 				<button onClick={() => this.setState({ locationPopup: true })} class={Style.delaysButton}>
 					Search Location
 				</button>

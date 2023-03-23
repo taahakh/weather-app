@@ -8,12 +8,14 @@ import { h, render, Component } from 'preact';
 
 export default class HourStates extends Component {
 
+	//placeholder values (FOR TESTING PURPOSES)
 	constructor(props) {
 		super(props);
 		this.state = {stats : [{hour: '19:00', temp:'20c', precipitation:'100%', windR:'50km/h', pressure:'30pascals'}]};
 	}
 
 
+	//main render of secondary hourly weather page
 	render() {
 
 		return (
