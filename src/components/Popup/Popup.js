@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import Style from './style.less';
 
 export default class Popup extends Component {
+	//main render of popup component
 	render(contents) {
 
 		return (contents.trigger) ? (
